@@ -1,0 +1,245 @@
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center" class="m-20">
+
+
+    <mat-card class="w-50 pt-20">
+        <form [formGroup]="paymentPlan" (ngSubmit)="calculate()">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+                <div fxLayout="column" class="full-width-field">
+                    <mat-label class="pl-10">
+                        Mortgage Amount <mat-icon class="f-s" [matTooltipHideDelay]="1000"
+                            matTooltip="The amount you expect to borrow from your financial institution. It is calculated as the purchase price of your home, minus the down payment plus any applicable mortgage loan insurance premium you have to pay.">
+                            help</mat-icon>
+                    </mat-label>
+                    <mat-form-field appearance="fill" [floatLabel]='"always"' class="p-10">
+
+
+                        <input currencyMask matInput type="text" formControlName="mtgAmount"
+                            [options]="{ prefix: '$ ', thousands: ',', decimal: '.',allowNegative:false}">
+                        <mat-error *ngIf="paymentPlan.get('mtgAmount')?.hasError('required')">Mortgage amount required
+                        </mat-error>
+
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column" class="full-width-field">
+                    <mat-label class="pl-10">
+                        Interest Rate <mat-icon class="f-s" [matTooltipHideDelay]="1000"
+                            matTooltip="Annual interest rate for this mortgage.">
+                            help</mat-icon>
+                    </mat-label>
+                    <mat-form-field appearance="fill" [floatLabel]='"always"' class="p-10">
+
+
+                        <input matInput class="text-align-right" type="number" formControlName="interestRate"
+                            appDecimalDirective>
+                        <span matSuffix>%</span>
+                        <mat-error *ngIf="paymentPlan.get('interestRate')?.hasError('required')">Interest rate required
+                        </mat-error>
+
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start" class="pl-10">
+                <mat-label>
+                    Ammortization Period: <mat-icon class="f-s" [matTooltipHideDelay]="1000"
+                        matTooltip="The number of years and months over which you will repay this loan. The most common amortization period is 25 years.">
+                        help</mat-icon>
+                </mat-label>
+
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+
+
+                <mat-form-field appearance="fill" [floatLabel]='"always"' class="p-10 full-width-field">
+                    <mat-label>
+                        Years
+                    </mat-label>
+                    <mat-select formControlName="amortizationPeriodYrs">
+                        <mat-option label="Select Years"></mat-option>
+                        <mat-option *ngFor="let item of yearOptions" [value]="item">{{item}} years
+                        </mat-option>
+                    </mat-select>
+                    <mat-error
+                        *ngIf="paymentPlan.get('amortizationPeriodYrs')?.hasError('atleastOneOf') || paymentPlan.get('amortizationPeriodMonths')?.hasError('atleastOneOf')">
+                        Ammortization
+                        Required.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" [floatLabel]='"always"' class="p-10 full-width-field">
+                    <mat-label>
+                        Months
+                    </mat-label>
+                    <mat-select formControlName="amortizationPeriodMonths">
+                        <mat-option label="Select Months"></mat-option>
+                        <mat-option *ngFor="let item of monthOptions" [value]="item">{{item}} months
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
+
+                <div fxLayout="column" class="full-width-field">
+                    <mat-label class="pl-10">Payment Frequency <mat-icon class="f-s" [matTooltipHideDelay]="1000"
+                            matTooltip="Payment Frequency outlined by the loan agreement you signed with your financial institution.">
+                            help</mat-icon>
+                    </mat-label>
+                    <mat-form-field appearance="fill" [floatLabel]='"always"' class="p-10">
+
+                        <mat-select formControlName="paymentFrequency">
+                            <mat-option *ngFor="let item of paymentFreqOptions" [value]="item.value">{{item.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="paymentPlan.get('paymentFrequency')?.hasError('required')">Payment frequency
+                            required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column" class="full-width-field">
+                    <mat-label class="pl-10">
+                        Term <mat-icon class="f-s" [matTooltipHideDelay]="1000" matTooltip="The number of term years.">
+                            help</mat-icon>
+                    </mat-label>
+                    <mat-form-field appearance="fill" [floatLabel]='"always"' class="p-10">
+
+                        <mat-select formControlName="term">
+                            <mat-option *ngFor="let item of termOptions" [value]="item">{{item}} years
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="paymentPlan.get('term')?.hasError('required')">Term
+                            required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <mat-slide-toggle class="p-10" formControlName="prepaymentPlanChecked" (change)="prepaymentToggle()">
+                Prepayment Plan
+            </mat-slide-toggle>
+
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" formGroupName="prepaymentPlan"
+                *ngIf="paymentPlan.get('prepaymentPlanChecked')?.value">
+                <div fxLayout="column" class="full-width-field">
+                    <mat-label class="pl-10">
+                        Prepayment Amount <mat-icon class="f-s" [matTooltipHideDelay]="1000"
+                            matTooltip="Amount that you will prepay on your mortgage. This amount will be applied to the mortgage principal balance, at a frequency of prepayments that you determine.">
+                            help</mat-icon>
+                    </mat-label>
+                    <mat-form-field appearance="fill" [floatLabel]='"always"' class="p-10">
+
+
+                        <input currencyMask matInput type="text" formControlName="prepaymentAmount"
+                            [options]="{ prefix: '$ ', thousands: ',', decimal: '.',allowNegative:false}">
+                        <mat-error
+                            *ngIf="paymentPlan.get('prepaymentPlan')?.get('prepaymentAmount')?.hasError('required')">
+                            Prepayment amount
+                            required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxLayout="column" class="full-width-field">
+                    <mat-label class="pl-10">Prepayment Frequency <mat-icon class="f-s" [matTooltipHideDelay]="1000"
+                            matTooltip="The frequency under which you will make prepayments on your mortgage. The options are one time payment, yearly and the same as regular payment.">
+                            help</mat-icon>
+                    </mat-label>
+                    <mat-form-field appearance="fill" [floatLabel]='"always"' class="p-10">
+
+                        <mat-select formControlName="prepaymentFreq">
+                            <mat-option *ngFor="let item of prepaymentFreqOptions" value="item">{{item}}</mat-option>
+                        </mat-select>
+                        <mat-error
+                            *ngIf="paymentPlan.get('prepaymentPlan')?.get('prepaymentAmount')?.hasError('required')">
+                            Prepayment frequency
+                            required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+
+            <div fxLayout="row" fxLayoutAlign="end">
+                <button mat-raised-button color="accent" type="submit">Calculate</button>
+
+            </div>
+
+        </form>
+    </mat-card>
+    <mat-card class="w-50 background-color-accent text-color-light">
+        <mat-card-title class="pb-15">Results</mat-card-title>
+        <div fxLayout="column" *ngIf="calculationComplete" class="w-100">
+            <mat-table #resultsTable [dataSource]="resultsArray">
+                <ng-container matColumnDef="category">
+                    <mat-header-cell *matHeaderCellDef>Category </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="term">
+                    <mat-header-cell *matHeaderCellDef> Term </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <span *ngIf="element.category=='Mortgage Payment'; else noFormat"> {{element.term |currency}}
+                        </span>
+
+                        <ng-template #noFormat>
+                            {{element.term}}
+                        </ng-template>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="amortizationPeriod">
+                    <mat-header-cell *matHeaderCellDef>Amortization Period </mat-header-cell>
+                    <mat-cell *matCellDef=" let element"> {{element.amortizationPeriod}} </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="resultsColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: resultsColumns;"></mat-row>
+            </mat-table>
+            <div class="chart">
+                <canvas baseChart [data]="pieChartData" [type]="pieChartType" [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins">
+                </canvas>
+            </div>
+        </div>
+
+    </mat-card>
+</div>
+
+<div fxLayout="column" fxLayoutAlign="center center" class="full-width-field p-10" *ngIf="calculationComplete">
+
+    <h1 class="p-10">Ammortization Table</h1>
+
+    <mat-table #ammortizationTable [dataSource]="paymentSchedule" class="mat-elevation-z8 w-80">
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef>Payment Number</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="payment">
+            <mat-header-cell *matHeaderCellDef>Payment </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <span> {{element.payment}} </span>
+
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="principalPayment">
+            <mat-header-cell *matHeaderCellDef>Principal Paid </mat-header-cell>
+            <mat-cell *matCellDef=" let element"> {{element.principalPayment}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="interestPayment">
+            <mat-header-cell *matHeaderCellDef>Interest Paid </mat-header-cell>
+            <mat-cell *matCellDef=" let element"> {{element.interestPayment}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="outstandingBalance">
+            <mat-header-cell *matHeaderCellDef>Outstanding Balance</mat-header-cell>
+            <mat-cell *matCellDef=" let element"> {{element.outstandingBalance}} </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="ammortizationTableColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: ammortizationTableColumns;"></mat-row>
+    </mat-table>
+</div>

@@ -1,0 +1,81 @@
+@import 'src/styles.scss';
+
+.full-width-field {
+    width: 100%;
+}
+
+.half-width-field {
+    width: 50%;
+}
+
+.w-50 {
+    width: 50%
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-80 {
+    width: 80%
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.pb-15 {
+    padding-bottom: 15px;
+}
+
+.p-10 {
+    padding: 10px
+}
+
+.pl-10 {
+    padding-left: 10px
+}
+
+.m-10 {
+    margin: 10px
+}
+
+.f-s {
+    font-size: small;
+}
+
+.mat-tooltip {
+    font-size: 16px !important;
+}
+
+.body {
+    margin: 10px;
+}
+
+.m-20 {
+    margin: 20px
+}
+
+.pt-20 {
+    padding-top: 20px;
+}
+
+.background-color-accent {
+    background-color: mat-color($primary, default);
+}
+
+.text-color-light {
+    color: white;
+}
+
+.mat-row:nth-child(even) {
+    background-color: mat-color($primary, 50);
+}
