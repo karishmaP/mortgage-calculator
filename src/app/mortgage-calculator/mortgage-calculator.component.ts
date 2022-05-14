@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatTable } from '@angular/material/table';
 import { ChartType, ChartOptions, ChartData, Legend, Chart } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { atleastOneOf } from '../shared/custom-validators/atleast-one-of-validator';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { NONE_TYPE } from '@angular/compiler';
 const maxYearsAmmortization = 30;
 const maxMonthsAmmortization = 11;
 const maxTerm = 10;
