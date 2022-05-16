@@ -6,6 +6,8 @@
 html,
 body {
     height: 100%;
+    background: #f9f9f9;
+
 }
 
 body {
@@ -13,21 +15,22 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+
 /* For use in src/lib/core/theming/_palette.scss */
-$mat-myapp-primary: (50 : #e7e9ec,
-    100 : #c2c8cf,
-    200 : #9aa4af,
-    300 : #71808e,
-    400 : #526476,
-    500 : #34495e,
-    600 : #2f4256,
-    700 : #27394c,
-    800 : #213142,
-    900 : #152131,
-    A100 : #72adff,
-    A200 : #3f8fff,
-    A400 : #0c71ff,
-    A700 : #0065f1,
+$mat-myapp-primary: (50 : #e2e6e9,
+    100 : #b6bfc9,
+    200 : #8595a5,
+    300 : #546b81,
+    400 : #304b66,
+    500 : #0b2b4b,
+    600 : #0a2644,
+    700 : #08203b,
+    800 : #061a33,
+    900 : #031023,
+    A100 : #5f92ff,
+    A200 : #2c6fff,
+    A400 : #004ff8,
+    A700 : #0047df,
     contrast: (50 : #000000,
         100 : #000000,
         200 : #000000,
@@ -39,26 +42,26 @@ $mat-myapp-primary: (50 : #e7e9ec,
         800 : #ffffff,
         900 : #ffffff,
         A100 : #000000,
-        A200 : #000000,
+        A200 : #ffffff,
         A400 : #ffffff,
         A700 : #ffffff,
     ));
 
 /* For use in src/lib/core/theming/_palette.scss */
-$mat-myapp-accent: (50 : #fef3e3,
-    100 : #fbe1b8,
-    200 : #f9ce89,
-    300 : #f7ba59,
-    400 : #f5ab36,
-    500 : #f39c12,
-    600 : #f19410,
-    700 : #ef8a0d,
-    800 : #ed800a,
-    900 : #ea6e05,
+$mat-myapp-accent: (50 : #fff3e0,
+    100 : #ffe2b3,
+    200 : #ffce80,
+    300 : #ffba4d,
+    400 : #ffac26,
+    500 : #ff9d00,
+    600 : #ff9500,
+    700 : #ff8b00,
+    800 : #ff8100,
+    900 : #ff6f00,
     A100 : #ffffff,
-    A200 : #ffecdf,
-    A400 : #ffceac,
-    A700 : #ffbf92,
+    A200 : #fff7f2,
+    A400 : #ffd7bf,
+    A700 : #ffc7a6,
     contrast: (50 : #000000,
         100 : #000000,
         200 : #000000,

@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { DecimalDirectiveDirective } from './shared/directives/decimal-directive/decimal-directive.directive';
@@ -45,6 +46,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
     MatTableModule,
     MatTooltipModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
     FlexLayoutModule,
     CurrencyMaskModule,
     NgChartsModule

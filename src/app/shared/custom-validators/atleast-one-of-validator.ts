@@ -7,7 +7,6 @@ export function atleastOneOf(
     return (formGroup: FormGroup) => {
         const control1 = formGroup.controls[control1Name];
         const control2 = formGroup.controls[control2Name];
-        console.log(control1)
         if (control1.value == null && control2.value == null) {
             control1.setErrors({ atleastOneOf: true });
             control2.setErrors({ atleastOneOf: true });
