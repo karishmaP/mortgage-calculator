@@ -1,7 +1,7 @@
 <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center" class="m-20">
 
     <mat-card class="w-50 pt-20 background-color-base">
-        <form [formGroup]="paymentPlan" (ngSubmit)="calculate()">
+        <form class="paymentPlan" [formGroup]="paymentPlan" (ngSubmit)="calculate()">
             <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px">
                 <div fxLayout="column" class="full-width-field">
                     <mat-label class="pl-10">

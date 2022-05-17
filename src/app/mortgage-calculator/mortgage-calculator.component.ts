@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatTable } from '@angular/material/table';
 import { ChartType, ChartOptions, ChartData, Legend, Chart, Title } from 'chart.js';
@@ -38,18 +38,26 @@ export class MortgageCalculatorComponent implements OnInit {
   @ViewChild('resultsTable') resultsTable!: MatTable<any>;
   @ViewChild('amortizationTable') amortizationTable!: MatTable<any>;
 
+
+  /* Form related Global variables */
   paymentPlan: FormGroup;
+  //Global variables for select dropdown options
   yearOptions;
   monthOptions;
   paymentFreqOptions;
   termOptions;
   prepaymentFreqOptions;
+
+  /* Mat table column definitions */
   resultsColumns: string[] = ['category', 'term', 'amortizationPeriod']
   amortizationTableColumns: string[] = ['id', 'payment', 'principalPayment', 'interestPayment', 'outstandingBalance']
+
+  /* Global variables to hold calculation results arrays */
   resultsArray: resultType[] = [];
-  calculationComplete = false;
   paymentSchedule: paymentSchedule[] = [];
 
+  /* Boolean for calculation status */
+  calculationComplete = false;
 
   /*  Global Variables for Amortization calculation results */
   totalPrincipalAmortization = 0;
