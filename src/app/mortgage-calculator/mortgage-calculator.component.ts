@@ -4,6 +4,7 @@ import { MatTable } from '@angular/material/table';
 import { ChartType, ChartOptions, ChartData, Legend, Chart, Title } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import { atleastOneOf } from '../shared/custom-validators/atleast-one-of-validator';
+import { termMoreThanAmort } from '../shared/custom-validators/greater-than-validator';
 
 /* Constants  */
 const maxYearsAmortization = 30;
@@ -123,7 +124,7 @@ export class MortgageCalculatorComponent implements OnInit {
 
     }, {
       /*Custom validator for ensuring at least of the the fields are filled in*/
-      validator: atleastOneOf("amortizationPeriodYrs", "amortizationPeriodMonths")
+      validator: [atleastOneOf("amortizationPeriodYrs", "amortizationPeriodMonths"), termMoreThanAmort("amortizationPeriodYrs", "amortizationPeriodMonths", "term")]
     });
 
     /* Intitializing select dropdown options for form */
@@ -207,6 +208,7 @@ export class MortgageCalculatorComponent implements OnInit {
     this.numberOfpaymentsForTerm()
 
     /* Calculate total Interest, Pricipal, Cost for term*/
+    console.log(this.totalNumOfPaymentsTerm)
     this.calculateTermPayments(this.totalNumOfPaymentsTerm)
 
     /* Resest results table datasource */
@@ -411,9 +413,9 @@ export class MortgageCalculatorComponent implements OnInit {
     this.totalCostTerm = 0;
     /* Iterate over payment schedule and sum values */
     for (let i = 0; i < numOfPaymentsForTerm; i++) {
-      this.totalPrincipalTerm += this.paymentSchedule[i].principalPayment
-      this.totalInterestTerm += this.paymentSchedule[i].interestPayment
-      this.totalCostTerm += this.paymentSchedule[i].payment
+      this.totalPrincipalTerm += this.paymentSchedule[i]?.principalPayment
+      this.totalInterestTerm += this.paymentSchedule[i]?.interestPayment
+      this.totalCostTerm += this.paymentSchedule[i]?.payment
     }
   }
 }

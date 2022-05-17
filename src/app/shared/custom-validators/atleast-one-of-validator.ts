@@ -12,8 +12,8 @@ export function atleastOneOf(
             control2.setErrors({ atleastOneOf: true });
 
         } else {
-            control1.setErrors(null);
-            control2.setErrors(null);
+            control1.setErrors({ atleastOneOf: false });
+            control2.setErrors({ atleastOneOf: false });
         }
     };
 }

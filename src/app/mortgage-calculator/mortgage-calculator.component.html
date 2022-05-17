@@ -62,8 +62,11 @@
                     </mat-select>
                     <mat-error
                         *ngIf="paymentPlan.get('amortizationPeriodYrs')?.hasError('atleastOneOf') || paymentPlan.get('amortizationPeriodMonths')?.hasError('atleastOneOf')">
-                        Ammortization
+                        Amortization
                         Required.
+                    </mat-error>
+                    <mat-error *ngIf="paymentPlan.get('amortizationPeriodYrs')?.hasError('termMoreThanAmort')">
+                        Amortization must be greater than term.
                     </mat-error>
                 </mat-form-field>
 
@@ -110,6 +113,9 @@
                         </mat-select>
                         <mat-error *ngIf="paymentPlan.get('term')?.hasError('required')">Term
                             required
+                        </mat-error>
+                        <mat-error *ngIf="paymentPlan.get('term')?.hasError('termMoreThanAmort')">
+                            Term must be less than amortization.
                         </mat-error>
                     </mat-form-field>
                 </div>
